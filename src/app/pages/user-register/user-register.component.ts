@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserRegisterService } from './user-register.service';
+import { UserRegisterDto } from './user-register.dto';
 
 @Component({
   selector: 'wta-user-register',
@@ -19,19 +21,29 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
       <div>
         <button type="submit" [disabled]="!registerForm.valid">Guardar</button>
       </div>
+      <em>{{ registerForm.status }}</em>
     </form>
   `,
   styles: ``,
 })
 export class UserRegisterComponent {
   private fb = inject(FormBuilder);
-  public registerForm = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+  private userRegisterService = inject(UserRegisterService);
+
+  public registerForm = new FormGroup({
+    name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   onSubmit() {
-    console.log(this.registerForm.value);
+    const formValues = this.registerForm.value;
+    const userRegisterDto: UserRegisterDto = {
+      name: formValues.name!,
+      email: formValues.email!,
+      password: formValues.password!,
+    } 
+    this.userRegisterService.registerUser(userRegisterDto);
+    
   }
 }
