@@ -17,7 +17,6 @@ export class AuthService {
 
   registerUser(value: UserRegisterDto): void {
     console.log(value);
-    value.email = 'sinemail';
     this.httpClient.post<ApiResponse>(this.registerUrlApi, value).subscribe(res => {
       console.log('token', res.token);
       console.log('message', res.message);
