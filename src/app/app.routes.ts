@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
-import { UserRegisterComponent } from './pages/user-register/user-register.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
-  { path: 'register', component: UserRegisterComponent,},
-  { path: '', component: DashboardComponent,}
+  { path: 'register', loadComponent: ()=>import('./pages/user-register/user-register.component').then(c => c.UserRegisterComponent),},
+  { path: 'login', loadComponent: ()=>import('./pages/login/login.component').then(c => c.LoginComponent),},
+  { path: 'dashboard', loadComponent: ()=>import('./pages/dashboard/dashboard.component').then(c => c.DashboardComponent),},
+  { path: 'main', loadComponent: ()=>import('./pages/main/main.component').then(c => c.MainComponent),},
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: '**', redirectTo: '/main', pathMatch: 'full' }
 ];

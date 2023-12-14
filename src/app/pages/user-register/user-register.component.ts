@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserRegisterService } from './user-register.service';
 import { UserRegisterDto } from './user-register.dto';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'wta-user-register',
@@ -28,7 +28,7 @@ import { UserRegisterDto } from './user-register.dto';
 })
 export class UserRegisterComponent {
   private fb = inject(FormBuilder);
-  private userRegisterService = inject(UserRegisterService);
+  private authService = inject(AuthService);
 
   public registerForm = new FormGroup({
     name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -43,7 +43,7 @@ export class UserRegisterComponent {
       email: formValues.email!,
       password: formValues.password!,
     } 
-    this.userRegisterService.registerUser(userRegisterDto);
+    this.authService.registerUser(userRegisterDto);
     
   }
 }

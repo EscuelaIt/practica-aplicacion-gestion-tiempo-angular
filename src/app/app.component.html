@@ -1,3 +1,19 @@
-<div>Componente contenedor</div>
+<header>
+  <nav>
+    <ul>
+      <li>
+        <a routerLink="/main" routerLinkActive="route-active">Inicio</a>
+      </li>
+      <li>
+        <a routerLink="/register" routerLinkActive="route-active">Registrarse</a>
+      </li>
+      <li>
+        <a routerLink="/login" routerLinkActive="route-active">Login</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>
 
-<router-outlet></router-outlet>
